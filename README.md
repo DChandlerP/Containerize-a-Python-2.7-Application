@@ -21,16 +21,11 @@ WORKDIR /{directory name where the code you want to execute is located}
 CMD ["/bin/bash"]
 ```
 
-
 ```FROM continuumio/miniconda2:latest```
-
-`FROM`: Initializes a new build stage and sets the Base Image
 
 This grabs the latest version of the miniconda2 Docker image. The Alpine variant is smaller but uses libc instead of glibc and a different package manager than the lab this image was designed for is familiar with, so a version that is Debian based was chosen. 
 
 ```RUN apt-get update && apt-get install -y --no-install-recommends git libnss-sss && rm -rf /var/lib/apt/lists/* \```
-
-`RUN`: Will execute any commands in a new layer
 
 ```apt-get update``` uses the APT package manager to update the list of repositories available. ```apt-get install```  installs git and libnss-ss. When complete the ```rm -rf``` command deletes ```/var/lib/apt/lists/*``` to save considerable space. It's a cache of the repositories available to install from and can be fairly large in some scenarios. ```\```  is used to indicates that the RUN statement continues on the next line.
 
@@ -44,8 +39,10 @@ There is more than one way to put code into an image. Using git allows for the c
 
 ``` WORKDIR /{directory of the code you wish to execute}```
 
-```WORKDIR:``` Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY, and ADD instructions that follow it in the Dockerfile
+Changes the working directory to the directory where you'd like to execute the next steps in the Dockerfile. 
 
 ```CMD ["/bin/bash"]```
 
-`CMD`: Provides a default for an executing container. There can only be one CMD instruction in a Dockerfile. One would probably change this to execute your code with the arguments you desire. Bash was only used as a placeholder here.
+`CMD`:  One would change this to execute your code with the arguments you desire. Bash was only used as a placeholder here.
+
+Want to learn more about the Dockerfile commands used here? [click here](https://docs.docker.com/engine/reference/builder/) . 
